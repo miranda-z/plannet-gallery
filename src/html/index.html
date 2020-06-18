@@ -1,13 +1,107 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en-us" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
     <title>Boilerplate</title>
   </head>
   <body>
     <div class="container">
-      <img class="image" src="./assets/img/monash-logo.png" alt="monash logo" />
-      <h1>Hello World</h1>
+      <ul class="nav nav-tabs">
+        <li role="presentation" id='homeLi' class="active"><a href="#" onclick="goHome()">Home</a></li>
+        <li role="presentation" id='perfumeLi'><a href="#" onclick="goGallery('perfume')">Perfume</a></li>
+        <li role="presentation" id='artLi'><a href="#" onclick="goGallery('art')">Art Album</a></li>
+      </ul>
+      <div id="home">
+        <div class="container mt-5">
+          <div class="row">
+              <div class="col-sm-12 col-md-6 col-lg-4 text-center">
+                  <img src="./assets/img/home/circle.png" class="mx-auto d-block" alt="profile image">
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-8 text-center align-self-center">
+                  <h1>Miranda Zhou</h1>
+                  <p>I’m a passionate Hermes Perfume Promotional Demonstrator & Painting Lover</p>
+              </div>
+          </div>
+      </div>
+      </div>
+      
+      <div id="gallery" class="gallery" style='display: none;'>
+        <div class="slide">
+        </div>
+        <div>
+          <h2 id="descriptionh">Hermes Fragrance</h2>
+          <p id="description">A NEW IDEAL OF OLFACTORY EXPRESSION A TOTAL FREEDOM OF CREATION</p>
+        </div>
+      </div>
+      
     </div>
+    <script>
+      function goHome() {
+        $(gallery).fadeOut('slow', function() {
+          $(home).fadeIn('slow');
+        });
+        
+        $(perfumeLi).removeClass('active')
+        $(artLi).removeClass('active')
+        $(homeLi).addClass('active')
+        console.log('home');
+      }
+      function goGallery(t) {
+        $(home).fadeOut('slow', function() {
+          $(gallery).fadeOut('slow', function () {
+            $(gallery).fadeIn('slow', addSlides(t));
+          })
+
+        });
+        $(homeLi).removeClass('active')
+        if (t == 'perfume') {
+          $(perfumeLi).addClass('active');
+          $(artLi).removeClass('active');
+          $(descriptionh).html('Hermes Fragrance');
+          $(description).html('A NEW IDEAL OF OLFACTORY EXPRESSION A TOTAL FREEDOM OF CREATION');
+        } else if (t == 'art') {
+          $(perfumeLi).removeClass('active');
+          $(artLi).addClass('active');
+          $(descriptionh).html('');
+          $(description).html('');
+        }
+        
+      }
+
+      function addSlides(t) {
+        $('.slide').slick(
+          'removeSlide',
+          null,
+          null,
+          true
+        )
+        let perfume = [];
+        for (let index = 1; index < 5; index++) {
+          perfume[index] = './assets/img/perfume/' + index + '.jpg';
+        }
+        let art = [];
+        for (let index = 1; index < 7; index++) {
+          art[index] = './assets/img/arts_album/' + index + '.png';
+        }
+        if (t == 'perfume') {
+          perfume.forEach(uri => {
+            $('.slide').slick('slickAdd', '<div><img src="' + uri + '" alt="perfume"></img></div>')
+          });
+          
+        }
+        else {
+          art.forEach(uri => {
+            $('.slide').slick('slickAdd', '<div><img src="' + uri + '" alt="art"></img></div>')
+          });
+        }
+      }
+      function resetSlides() {
+        
+      }
+    </script>
   </body>
+  
 </html>
