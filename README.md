@@ -1,4 +1,4 @@
-# Webpack boilerplate with SASS, HTML modules, Babel
+# Webpack Web Design with SASS, HTML modules, Babel
 ## Usage
 Installation
 ```
